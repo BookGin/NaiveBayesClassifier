@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <fstream>
 #include <cctype>
+#include <cstdlib>
 #include <string>
 #include <vector>
 
@@ -19,16 +20,19 @@ string& removeSymbol(string &buf)
   return buf;
 }
 
-vector<string> &parse(const char *path, vector<string> &terms)
+vector<string>& parse(const string& path, vector<string> &terms)
 {
   std::ifstream input_file(path);
-  if (!input_file)
-    perror("fail");
+  if (!input_file) {
+    perror(path.c_str());
+    exit(EXIT_FAILURE);
+  }
 
   string buf;
   input_file >> buf;
   while (!input_file.eof()) {
-    terms.push_back(buf);
+    if (!buf.empty())
+      terms.push_back(buf);
     input_file >> buf;
     buf = removeSymbol(buf);
   }
