@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "vocabulary.h"
 #include "fileparser.h"
@@ -41,7 +42,7 @@ public:
     for (string& word: words) {
       double prob = word_counts.computeProb(word);
       if (prob == 0.0)
-        result += log(1e-10);
+        result += log(1/word_size());
       else
         result += log(prob);
     }
