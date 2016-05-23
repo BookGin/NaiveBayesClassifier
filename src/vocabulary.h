@@ -1,3 +1,6 @@
+#ifndef VOCABULARY_H
+#define VOCABULARY_H
+
 #include <string>
 #include <unordered_map>
 using std::string;
@@ -28,3 +31,5 @@ public:
     word_size ++;
   }
 };
+
+#endif

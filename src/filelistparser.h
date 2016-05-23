@@ -1,3 +1,6 @@
+#ifndef FILELISTPARSER_H
+#define FILELISTPARSER_H
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -43,3 +46,5 @@ FileList& parseFileList(const string& path, FileList& file_list)
   input_file.close();
   return file_list;
 }
+
+#endif

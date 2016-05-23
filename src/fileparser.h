@@ -1,3 +1,6 @@
+#ifndef FILEPARSER_H
+#define FILEPARSER_H
+
 #include <algorithm>
 #include <fstream>
 #include <cctype>
@@ -40,3 +43,5 @@ vector<string>& parseFile(const string& path, vector<string> &terms)
 
   return terms;
 }
+
+#endif

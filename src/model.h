@@ -1,3 +1,6 @@
+#ifndef MODEL_H
+#define MODEL_H
+
 #include <string>
 #include <vector>
 
@@ -37,3 +40,5 @@ public:
     return word_counts.computeProb(word);
   }
 };
+
+#endif
