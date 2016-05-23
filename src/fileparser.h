@@ -23,7 +23,7 @@ static string& removeSymbol(string &buf)
   return buf;
 }
 
-vector<string>& parseFile(const string& path, vector<string> &terms)
+static vector<string>& parse(const string& path, vector<string> &words, bool need_remove_symbols)
 {
   std::ifstream input_file(path);
   if (!input_file) {
@@ -35,13 +35,26 @@ vector<string>& parseFile(const string& path, vector<string> &terms)
   input_file >> buf;
   while (!input_file.eof()) {
     if (!buf.empty())
-      terms.push_back(buf);
+      words.push_back(buf);
     input_file >> buf;
-    buf = removeSymbol(buf);
+    if (need_remove_symbols)
+      buf = removeSymbol(buf);
   }
   input_file.close();
 
-  return terms;
+  return words;
 }
+
+vector<string>& parseFile(const string& path, vector<string> &words)
+{
+  return parse(path, words, true);
+}
+
+vector<string>& parseRawFile(const string& path, vector<string> &words)
+{
+  return parse(path, words, false);
+}
+
+
 
 #endif
