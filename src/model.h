@@ -35,9 +35,22 @@ public:
       word_counts.insert(word);
   }
 
-  double computeProb(const string &word) 
+  double computeProb(vector<string>& words)
   {
-    return word_counts.computeProb(word);
+    double result = 0.0;
+    for (string& word: words) {
+      double prob = word_counts.computeProb(word);
+      if (prob == 0.0)
+        result += log(1e-10);
+      else
+        result += log(prob);
+    }
+    return result;
+  }
+
+  unsigned long long word_size()
+  {
+    return word_counts.word_size;
   }
 };
 
