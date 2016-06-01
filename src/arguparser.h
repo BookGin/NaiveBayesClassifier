@@ -1,3 +1,6 @@
+#ifndef AUGUPARSER_H
+#define AUGUPARSER_H
+
 #include <cstring>
 #include <cstdlib>
 #include <string>
@@ -38,3 +41,5 @@ private:
   string output_file;
   int label_size = -1;
 };
+
+#endif
