@@ -1,3 +1,4 @@
 *.tar.gz
 *.pdf
+*.o
 20news/
