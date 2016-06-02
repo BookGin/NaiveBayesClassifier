@@ -4,9 +4,9 @@ CFLAGS = -O2 -Wextra -Wall -std=c++11
 
 .PHONY: all clean
 
-all: main
+all: naivebayes
 
-main: vocabulary.o fileparser.o filelistparser.o model.o
+naivebayes: vocabulary.o fileparser.o filelistparser.o model.o
 	$(CC) $(CFLAGS) $@.cpp -o $@
 
 vocabulary.o: vocabulary.h
