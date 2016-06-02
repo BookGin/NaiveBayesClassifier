@@ -39,13 +39,13 @@ string label(string& query_path, vector<Model>& models)
 int main(int argc, char *argv[])
 {
   FileList file_list;
-  file_list = parseFileList("./filelist", file_list);
+  file_list = parseFileList(argv[1], file_list);
 
   vector<Model> models;
   models = buildModels(models, file_list);
 
   vector<string> query_paths;
-  query_paths = parseRawFile("./querylist", query_paths);
+  query_paths = parseRawFile(argv[2], query_paths);
 
   int query_index = 1;
   for (string& query_path: query_paths) {
