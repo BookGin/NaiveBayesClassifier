@@ -5,9 +5,8 @@ if [ $# -ne 1 ];then
   exit 1 
 fi
 
-qry_num=$(ls $1 | wc -l)
+nums=$(ls $1 | sort -g)
 
-for (( i=1; i<=$qry_num; i++ ))
-do
-   echo "$1/$i"
+for n in $nums; do
+ echo "$1/$n"
 done
