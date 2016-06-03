@@ -16,9 +16,9 @@ public:
   double computeProb(const string &word) 
   {
     if (word_counts.find(word) == word_counts.end())
-      return 0.0;
+      return double(1) / double(word_size);
     else
-      return double(word_counts.at(word)) / double(word_size);
+      return double(word_counts.at(word) + 1) / double(word_size);
   }
 
   void insert(const string &word)

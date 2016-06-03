@@ -41,10 +41,7 @@ public:
     double result = 0.0;
     for (string& word: words) {
       double prob = word_counts.computeProb(word);
-      if (prob == 0.0)
-        result += log(double(1) / double(word_size()));
-      else
-        result += log(prob);
+      result += log(prob);
     }
     return result;
   }
