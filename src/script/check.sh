@@ -7,6 +7,7 @@ fi
 
 error=`diff $1 $2 | grep '^>' | wc -l`
 all=`cat $1 | wc -l`
-error_rate=`echo "scale=4;$error/$all*100.0" | bc`
-echo "Wrong: $error/$all"
-echo "Error rate: $error_rate%"
+correct=$(($all-$error))
+acc=`echo "scale=4;$correct/$all*100.0" | bc`
+echo "Correct: $correct/$all"
+echo "Accuracy: $acc%"
