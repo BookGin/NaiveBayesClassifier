@@ -4,7 +4,10 @@ CFLAGS = -O2 -Wextra -Wall -std=c++11
 
 .PHONY: all clean
 
-all: naivebayes
+all: naivebayes EM
+
+EM: EM.cpp vocabulary.o fileparser.o filelistparser.o model.o
+	$(CC) $(CFLAGS) $@.cpp -o $@
 
 naivebayes: naivebayes.cpp vocabulary.o fileparser.o filelistparser.o model.o
 	$(CC) $(CFLAGS) $@.cpp -o $@
@@ -22,4 +25,4 @@ model.o: model.h
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean:
-	rm -rf *.o main
+	rm -rf *.o naivebayes EM
