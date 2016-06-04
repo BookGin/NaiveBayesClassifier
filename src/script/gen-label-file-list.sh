@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [ $# -ne 2 ];then 
-  echo 'Incorrect arguments'
-  exit 1 
-fi
-
 for topic in `ls $1`;do
   echo ":$topic"
   if [ "$2" == "" ]; then
