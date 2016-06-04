@@ -37,7 +37,10 @@ class Model
 {
 public:
   Vocabulary word_counts;
+  int label_data_size = 0;
+  vector<double> unlabel_probs;
   string topic;
+  double theta = 0.05; // 20 News set
 
   Model(const string& model_topic, const vector<string>& paths) {
     topic = model_topic;
@@ -50,6 +53,7 @@ public:
     for (string path: paths) {
       words = parseFile(path, words);
       insert(words);
+      label_data_size ++;
     }
   }
 
@@ -68,6 +72,7 @@ public:
       double prob = word_counts.computeProb(word);
       result += log(prob);
     }
+    result *= theta;
     return result;
   }
 
@@ -76,12 +81,41 @@ public:
     return word_counts.word_size;
   }
 
-  bool isStopword(string& word) {
-    for (int i = 0; i < sizeof(STOPWORD_LIST) / sizeof(STOPWORD_LIST[0]); i++)
+  int getDataSize()
+  {
+    return label_data_size + unlabel_probs.size();
+  }
+
+  bool isStopword(string& word) 
+  {
+    for (unsigned int i = 0; i < sizeof(STOPWORD_LIST) / sizeof(STOPWORD_LIST[0]); i++)
       if (word == STOPWORD_LIST[i])
         return true;
 
     return false;
+  }
+
+  void resetUnlabel()
+  {
+    unlabel_probs.clear();
+  }
+
+  void addUnlabel(double prob)
+  {
+    unlabel_probs.push_back(prob);
+  }
+
+  double getExpectation()
+  {
+    double expectation = 0.0;
+    for (double& prob: unlabel_probs)
+      expectation += log(theta * prob);
+    return expectation;
+  }
+
+  void maximizeTheta(int total_docs)
+  {
+    theta = double(label_data_size + unlabel_probs.size()) / double(total_docs);
   }
 };
 
