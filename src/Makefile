@@ -6,7 +6,7 @@ CFLAGS = -O2 -Wextra -Wall -std=c++11
 
 all: naivebayes
 
-naivebayes: vocabulary.o fileparser.o filelistparser.o model.o
+naivebayes: naivebayes.cpp vocabulary.o fileparser.o filelistparser.o model.o
 	$(CC) $(CFLAGS) $@.cpp -o $@
 
 vocabulary.o: vocabulary.h
