@@ -10,6 +10,29 @@
 using std::string;
 using std::vector;
 
+const string STOPWORD_LIST[] = {
+"the",
+"to",
+"of",
+"a",
+"and",
+"I",
+"is",
+"in",
+"that",
+"for",
+"it",
+"you",
+"on",
+"be",
+"have",
+"with",
+"are",
+"this",
+"not",
+"The"
+};
+
 class Model 
 {
 public:
@@ -40,6 +63,8 @@ public:
   {
     double result = 0.0;
     for (string& word: words) {
+  //    if (isStopword(word))
+  //     continue;
       double prob = word_counts.computeProb(word);
       result += log(prob);
     }
@@ -49,6 +74,14 @@ public:
   unsigned long long word_size()
   {
     return word_counts.word_size;
+  }
+
+  bool isStopword(string& word) {
+    for (int i = 0; i < sizeof(STOPWORD_LIST) / sizeof(STOPWORD_LIST[0]); i++)
+      if (word == STOPWORD_LIST[i])
+        return true;
+
+    return false;
   }
 };
 
