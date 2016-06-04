@@ -32,7 +32,8 @@ query_path=./tmpdir/querylist
 mkdir ./tmpdir/
 ./script/gen-label-file-list.sh $data_dir/Train $label_size > $label_path
 ./script/gen-filelist.sh $data_dir/Test > $query_path
+./script/gen-filelist.sh $data_dir/Unlabel > $unlabel_path
 
-./naivebayes $label_path $query_path $unlabel_path> $output_file 
+./EM $label_path $query_path $unlabel_path> $output_file 
 
 rm -rf ./tmpdir
