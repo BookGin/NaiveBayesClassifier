@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 #include "vocabulary.h"
 #include "fileparser.h"
@@ -67,12 +68,12 @@ public:
   {
     double result = 0.0;
     for (string& word: words) {
-  //    if (isStopword(word))
-  //     continue;
+      //if (isStopword(word))
+      // continue;
       double prob = word_counts.computeProb(word);
       result += log(prob);
     }
-    result *= theta;
+    result += log(theta);
     return result;
   }
 
@@ -109,7 +110,8 @@ public:
   {
     double expectation = 0.0;
     for (double& prob: unlabel_probs)
-      expectation += log(theta * prob);
+      expectation += prob;
+    expectation += log(theta);
     return expectation;
   }
 
