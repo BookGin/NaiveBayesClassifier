@@ -5,11 +5,12 @@
 #include <unordered_map>
 #include <algorithm>
 #include <utility>
+#include <unistd.h>
 #include "model.h"
 #include "filelistparser.h"
 #include "fileparser.h"
 
-#define ERROR_RANGE (0.00001)
+#define ERROR_RANGE (0.001)
 
 using std::vector;
 using std::string;
@@ -74,7 +75,7 @@ double getExpectation(Models& models)
 void maximizeTheta(Models& models) 
 {
   int total_docs = getTotalDocNum(models);
-  for (Model& model: models)
+  for (Model& model: models) 
     model.maximizeTheta(total_docs);
 }
 
@@ -117,9 +118,11 @@ int main(int argc, char *argv[])
   rebuildModel(models, unlabel_words);
 
   // E-step
-  double last_expectation = std::numeric_limits<double>::infinity();
   double expectation = getExpectation(models);
-  while (abs(last_expectation - expectation) > ERROR_RANGE) {
+  double last_expectation = expectation - ERROR_RANGE * 10;
+
+  while (expectation - last_expectation >= ERROR_RANGE) {
+    last_expectation = expectation;
     // M-step
     maximizeTheta(models);
 
@@ -129,7 +132,6 @@ int main(int argc, char *argv[])
 
     expectation = getExpectation(models);
   }
-
   vector<string> query_paths;
   query_paths = parseRawFile(argv[2], query_paths);
 
