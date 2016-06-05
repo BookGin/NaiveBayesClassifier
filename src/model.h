@@ -68,8 +68,8 @@ public:
   {
     double result = 0.0;
     for (string& word: words) {
-      //if (isStopword(word))
-      // continue;
+      if (isStopword(word))
+       continue;
       double prob = word_counts.computeProb(word);
       result += log(prob);
     }
